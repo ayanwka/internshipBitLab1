@@ -1,0 +1,29 @@
+services:
+  # 1. Сервис базы данных
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: lms_postgres
+    ports:
+      - 5433:5432 # Снаружи (с компа) стучимся на 5433, внутри докера — 5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lms_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. Сервис Go-приложения
+  web_app:
+    build: . # Говорим Docker-Compose: "Возьми Dockerfile из текущей папки и собери его"
+    container_name: lms_main_app
+    ports:
+      - "8080:8080" # Пробрасываем порт 8080 наружу для Insomnia
+    depends_on:
+      - postgres_db # Веб-приложение начнет запускаться только ПОСЛЕ старта базы данных
+    environment:
+      # ВАЖНО: хостом в DSN указываем имя сервиса базы данных "postgres_db", а не localhost!
+      # И порт внутри сети докера — 5432!
+      DB_DSN: "host=postgres_db user=user password=password dbname=lms_db port=5432 sslmode=disable"
+
+volumes:
+  pgdata:
