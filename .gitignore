@@ -1,0 +1,14 @@
+
+.idea/
+.vscode/
+
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+
+
+.env

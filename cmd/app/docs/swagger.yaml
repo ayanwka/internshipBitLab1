@@ -1,0 +1,459 @@
+basePath: /api/v1
+definitions:
+  apperrors.ValidationError:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.ChapterDTO:
+    properties:
+      chapter_order:
+        type: integer
+      course_id:
+        type: integer
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  dtos.CourseDTO:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  dtos.LessonDTO:
+    properties:
+      chapter_id:
+        type: integer
+      content:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      lesson_order:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: Todo Lms API
+  version: "1.0"
+paths:
+  /chapters:
+    post:
+      parameters:
+      - description: Данные главы
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.ChapterDTO'
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Creating a chapter
+      tags:
+      - Chapters
+  /chapters/{id}:
+    delete:
+      parameters:
+      - description: ID главы
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a chapter
+      tags:
+      - Chapters
+    get:
+      parameters:
+      - description: ID главы
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Show the chapter
+      tags:
+      - Chapters
+    put:
+      parameters:
+      - description: ID главы
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Chapter update
+      tags:
+      - Chapters
+  /chapters/{id}/lessons:
+    get:
+      parameters:
+      - description: ID главы
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Show a list of lessons by chapter ID
+      tags:
+      - Lessons
+  /courses:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtos.CourseDTO'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all courses
+      tags:
+      - Courses
+    post:
+      parameters:
+      - description: Данные курса
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CourseDTO'
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Creating a course
+      tags:
+      - Courses
+  /courses/{id}:
+    delete:
+      parameters:
+      - description: ID курса
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a course
+      tags:
+      - Courses
+    get:
+      parameters:
+      - description: ID курса
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Show the course
+      tags:
+      - Courses
+    put:
+      parameters:
+      - description: Новые данные курса
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.CourseDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Course update
+      tags:
+      - Courses
+  /courses/{id}/chapters:
+    get:
+      parameters:
+      - description: ID курса
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Show a list of chapters by course ID
+      tags:
+      - Chapters
+  /lessons:
+    post:
+      parameters:
+      - description: Данные лекции
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.LessonDTO'
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Creating a lesson
+      tags:
+      - Lessons
+  /lessons/{id}:
+    delete:
+      parameters:
+      - description: ID лекции
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a lesson
+      tags:
+      - Lessons
+    get:
+      parameters:
+      - description: ID лекции
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Show the lesson
+      tags:
+      - Lessons
+    put:
+      parameters:
+      - description: Новые данные лекции
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.LessonDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apperrors.ValidationError'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Lesson update
+      tags:
+      - Lessons
+swagger: "2.0"

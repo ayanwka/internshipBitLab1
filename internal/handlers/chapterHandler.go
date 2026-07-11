@@ -19,6 +19,13 @@ func NewChapterHandler(chapterService services.ChapterService) *ChapterHandler {
 	return &ChapterHandler{chapterService: chapterService}
 }
 
+// @Summary      Creating a chapter
+// @Param		 input body dtos.ChapterDTO true "Данные главы"
+// @Failure		 400 {object} apperrors.ValidationError
+// @Failure		 500 {object} map[string]string
+// @Router		 /chapters [post]
+// @Tags 		 Chapters
+// @Success 	 201 {object} map[string]string
 func (c2 *ChapterHandler) CreateChapter(c *gin.Context) {
 	var chapter dtos.ChapterDTO
 	if err := c.ShouldBindJSON(&chapter); err != nil {
@@ -30,11 +37,19 @@ func (c2 *ChapterHandler) CreateChapter(c *gin.Context) {
 	err := c2.chapterService.CreateChapter(chapter)
 	if err != nil {
 		_ = c.Error(err)
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusCreated, gin.H{"message": "глава успешно создана"})
 }
 
+// @Summary      Show the chapter
+// @Param		 id path uint true "ID главы"
+// @Failure		 400 {object} apperrors.ValidationError
+// @Failure		 500 {object} map[string]string
+// @Router		 /chapters/{id} [get]
+// @Tags 		 Chapters
+// @Success 	 200 {object} map[string]string
 func (c2 *ChapterHandler) GetChapter(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -47,11 +62,19 @@ func (c2 *ChapterHandler) GetChapter(c *gin.Context) {
 	chapter, err := c2.chapterService.GetChapter(uint(id))
 	if err != nil {
 		_ = c.Error(err)
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, chapter)
 }
 
+// @Summary      Show a list of chapters by course ID
+// @Param		 id path uint true "ID курса"
+// @Failure		 400 {object} apperrors.ValidationError
+// @Failure		 500 {object} map[string]string
+// @Router		 /courses/{id}/chapters [get]
+// @Tags 		 Chapters
+// @Success 	 200 {object} map[string]string
 func (c2 *ChapterHandler) GetChaptersByCourseID(c *gin.Context) {
 	idStr := c.Param("id")
 	CourseID, err := strconv.ParseUint(idStr, 10, 32)
@@ -64,11 +87,19 @@ func (c2 *ChapterHandler) GetChaptersByCourseID(c *gin.Context) {
 	chapters, err := c2.chapterService.GetChaptersByCourseID(uint(CourseID))
 	if err != nil {
 		_ = c.Error(err)
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, chapters)
 }
 
+// @Summary      Chapter update
+// @Param		 id path uint true "ID главы"
+// @Failure		 400 {object} apperrors.ValidationError
+// @Failure		 500 {object} map[string]string
+// @Router		 /chapters/{id} [put]
+// @Tags 		 Chapters
+// @Success 	 200 {object} map[string]string
 func (c2 *ChapterHandler) UpdateChapter(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -88,11 +119,19 @@ func (c2 *ChapterHandler) UpdateChapter(c *gin.Context) {
 	err = c2.chapterService.UpdateChapter(chapter)
 	if err != nil {
 		_ = c.Error(err)
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, chapter)
 }
 
+// @Summary      Delete a chapter
+// @Param		 id path uint true "ID главы"
+// @Failure		 400 {object} apperrors.ValidationError
+// @Failure		 500 {object} map[string]string
+// @Router		 /chapters/{id} [delete]
+// @Tags 		 Chapters
+// @Success 	 200 {object} map[string]string
 func (c2 *ChapterHandler) DeleteChapter(c *gin.Context) {
 	idStr := c.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -105,6 +144,7 @@ func (c2 *ChapterHandler) DeleteChapter(c *gin.Context) {
 	err = c2.chapterService.DeleteChapter(uint(id))
 	if err != nil {
 		_ = c.Error(err)
+		c.Abort()
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "глава успешно удалена"})

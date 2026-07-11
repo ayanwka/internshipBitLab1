@@ -5,6 +5,10 @@ import (
 	"lms-main-service/pkg/apperrors"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "lms-main-service/cmd/app/docs" // Путь должен точно вести к твоей новой папке docs
 )
 
 func SetupRouter(
@@ -13,6 +17,7 @@ func SetupRouter(
 	lessonHandler *handlers.LessonHandler,
 ) *gin.Engine {
 	r := gin.Default()
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.Use(apperrors.CustomErrMiddleware())
 
 	api := r.Group("/api/v1")

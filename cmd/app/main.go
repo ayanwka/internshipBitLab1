@@ -13,12 +13,16 @@ import (
 	"gorm.io/gorm"
 )
 
+// @title Todo Lms API
+// @version 1.0
+// @host localhost:8080
+// @BasePath /api/v1
 func main() {
 	logging.Init()
 	// Проверяем: если запущено в Докере, подставится переменная из docker-compose
 	dsn := os.Getenv("DB_DSN") //Data Source Name (Имя источника данных) - данные для подключения к БД
 	if dsn == "" {
-		// Дефолтная строка для локального запуска без докера (порт 5433, так как в докере у тебя 5433)
+		// Дефолтная строка для локального запуска без докера
 		dsn = "host=localhost user=user password=password dbname=lms_db port=5433 sslmode=disable"
 	}
 

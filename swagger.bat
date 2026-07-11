@@ -1,0 +1,1 @@
+swag init -d cmd/app,internal/handlers -g main.go -o cmd/app/docs --parseDependency
