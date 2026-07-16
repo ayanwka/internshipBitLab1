@@ -73,5 +73,5 @@ func (c *chapterRepository) GetBy(query string, args ...any) (*models.Chapter, e
 	if err != nil {
 		return nil, err // Если не нашли или упала база — возвращаем ошибку
 	}
-	return &chapter, nil // Нашли! Возвращаем указатель на курс
+	return &chapter, nil // Возвращаем указатель на главу
 }

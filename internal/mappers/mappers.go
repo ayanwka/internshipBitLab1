@@ -29,6 +29,7 @@ func MapToChapterDto(chapter models.Chapter) dtos.ChapterDTO {
 	chapterDTO.Name = chapter.Name
 	chapterDTO.Description = chapter.Description
 	chapterDTO.CourseID = chapter.CourseId
+	chapterDTO.ChapterOrder = chapter.ChapterOrder
 	return chapterDTO
 }
 
@@ -49,6 +50,7 @@ func MapToLessonDto(lesson models.Lesson) dtos.LessonDTO {
 	lessonDTO.Description = lesson.Description
 	lessonDTO.Content = lesson.Content
 	lessonDTO.ChapterID = lesson.ChapterId
+	lessonDTO.LessonOrder = lesson.LessonOrder
 	return lessonDTO
 }
 

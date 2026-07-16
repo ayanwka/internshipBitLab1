@@ -8,7 +8,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "lms-main-service/cmd/app/docs" // Путь должен точно вести к твоей новой папке docs
+	_ "lms-main-service/cmd/app/docs" // путь к docs для swagger
 )
 
 func SetupRouter(

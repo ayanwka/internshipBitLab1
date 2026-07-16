@@ -75,5 +75,5 @@ func (c *courseRepository) GetBy(query string, args ...any) (*models.Course, err
 	if err != nil {
 		return nil, err // Если не нашли или упала база — возвращаем ошибку
 	}
-	return &course, nil // Нашли! Возвращаем указатель на курс
+	return &course, nil // Возвращаем указатель на курс
 }
